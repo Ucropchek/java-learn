@@ -1,12 +1,10 @@
 package ru.seroglazov.company;
 
-import java.util.ArrayList;
-
 import ru.seroglazov.validation.Validate;
 
 public class Employee {
-    private String name;
-    private Department department;
+    String name;
+    Department department;
 
     public Employee(String name) {
         if (Validate.isNull(name) || name.isBlank()) name = "unknown";
@@ -38,13 +36,22 @@ public class Employee {
 
     public void setDepartment(Department department) {
         if (this.department == department) {
-            if (!Validate.isNull(department)) department.addEmployees(this);
+            if (!Validate.isNull(department) && !department.employees.contains(this)) {
+                department.employees.add(this);
+            }
             return;
         }
         Department oldDepartment = this.department;
         this.department = department;
-        if (!Validate.isNull(oldDepartment)) oldDepartment.removeEmployees(this);
-        if (!Validate.isNull(department)) department.addEmployees(this);
+        if (!Validate.isNull(oldDepartment)) {
+            oldDepartment.employees.remove(this);
+            if (oldDepartment.boss == this) {
+                oldDepartment.boss = new Employee("unknown", oldDepartment);
+            }
+        }
+        if (!Validate.isNull(department) && !department.employees.contains(this)) {
+            department.employees.add(this);
+        }
     }
     //endregion
 

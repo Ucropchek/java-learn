@@ -6,6 +6,8 @@ import static ru.seroglazov.main.MainTest.args;
 import static ru.seroglazov.main.Section2.sum;
 import static java.lang.Math.pow;
 import static java.lang.Integer.parseInt;
+import ru.seroglazov.company.Department;
+import ru.seroglazov.company.Employee;
 import ru.seroglazov.geometry.Point;
 
 public class Section3 {
@@ -27,6 +29,29 @@ public class Section3 {
             java.awt.Point pJv = new java.awt.Point(1, 1);
             System.out.println(pMy);
             System.out.println(pJv);
+        }
+        //endregion
+        
+        //region task 3.2.1
+        if (number == 32.1f) {
+            Department it = new Department("IT", null);
+            Department hr = new Department("HR", null);
+            
+            Employee ivan = new Employee("Иван", it);
+            Employee petr = new Employee("Пётр", it);
+            it.setBoss(ivan);
+            
+            System.out.println(ivan);
+            System.out.println(petr);
+            System.out.println("Начальник в отделе: " + (it.getBoss().getDepartment() == it));
+
+            ivan.setDepartment(hr);
+            System.out.println(it.getBoss() + " | отдел начальника тот же: " + (it.getBoss().getDepartment() == it));
+            System.out.println(ivan);
+
+            hr.setBoss(petr);
+            System.out.println(petr + " | " + petr.getDepartment().getTitle());
+            System.out.println(it.getBoss());
         }
         //endregion
     }

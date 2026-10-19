@@ -6,9 +6,9 @@ import java.util.Arrays;
 import ru.seroglazov.validation.Validate;
 
 public class Department {
-    private String title;
-    private Employee boss;
-    private ArrayList<Employee> employees;
+    String title;
+    Employee boss;
+    ArrayList<Employee> employees;
 
     public Department(String title, Employee boss, Employee... employees) {
         if (Validate.isNull(title) || title.isBlank()) title = "unknown";
@@ -71,7 +71,7 @@ public class Department {
         for (Employee employee : employees) {
             if (Validate.isNull(employee) || this.employees.contains(employee)) continue;
             this.employees.add(employee);
-            if (employee.getDepartment() != this) employee.setDepartment(this);
+            if (employee.department != this) employee.setDepartment(this);
         }
     }
 
@@ -84,7 +84,7 @@ public class Department {
         if (employees == null) return;
         for (Employee employee : employees) {
             if (Validate.isNull(employee) || !this.employees.remove(employee)) continue;
-            if (employee.getDepartment() == this) employee.setDepartment(null);
+            if (employee.department == this) employee.department = null;
             if (employee == boss) boss = new Employee("unknown", this);
         }
     }

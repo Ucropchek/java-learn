@@ -45,7 +45,7 @@ public class Pistol extends Weapon{
     //endregion
 
     public boolean isLoaded() {
-        return getAmmo() > 0;
+        return ammo > 0;
     }
 
     @Override
@@ -59,14 +59,14 @@ public class Pistol extends Weapon{
 
     public int reload(int count) {
         Validate.isNegativeException("Отрицательного числа патронов быть не может.", count);
-        int taken = Math.min(count, maxAmmo - getAmmo());
-        setAmmo(getAmmo() + taken);
+        int taken = Math.min(count, maxAmmo - ammo);
+        ammo += taken;
         return count - taken;
     }
 
     public int unload() {
-        int returned = getAmmo();
-        setAmmo(0);
+        int returned = ammo;
+        ammo = 0;
         return returned;
     }
 
@@ -77,6 +77,6 @@ public class Pistol extends Weapon{
 
     @Override
     public String toString() {
-        return "Пистолет: " + getAmmo() + "/" + maxAmmo;
+        return "Пистолет: " + ammo + "/" + maxAmmo;
     }
 }

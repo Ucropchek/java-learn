@@ -3,7 +3,7 @@ package ru.seroglazov.weapon;
 import ru.seroglazov.validation.Validate;
 
 public abstract class Weapon {
-    private int ammo;
+    protected int ammo;
 
     public Weapon(int ammo) {
         Validate.isNegativeException("Количество патронов не может быть отрицательным", ammo);
