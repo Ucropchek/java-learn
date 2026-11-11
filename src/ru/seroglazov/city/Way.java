@@ -43,4 +43,17 @@ public class Way {
     }
 
     //endregion
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Way way)) return false;
+        return townTo.equals(way.townTo);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
 }

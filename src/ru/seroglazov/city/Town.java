@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import ru.seroglazov.validation.Validate;
 
 public class Town {
+    private static ArrayList<Town> openLeft = new ArrayList<>();
+    private static ArrayList<Town> openRight = new ArrayList<>();
+
     private String title;
     private ArrayList<Way> ways;
 
@@ -98,6 +101,43 @@ public class Town {
             result.add(new Way(w));
         }
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Town other)) return false;
+        for (int i = 0; i < openLeft.size(); i++) {
+            if (openLeft.get(i) == this && openRight.get(i) == other) return true;
+        }
+        openLeft.add(this);
+        openRight.add(other);
+        boolean same = sameWays(other);
+        openLeft.remove(openLeft.size() - 1);
+        openRight.remove(openRight.size() - 1);
+        return same;
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
+    private boolean sameWays(Town other) {
+        for (Way way : ways) {
+            if (!hasEqualWay(other.ways, way)) return false;
+        }
+        for (Way way : other.ways) {
+            if (!hasEqualWay(ways, way)) return false;
+        }
+        return true;
+    }
+
+    private static boolean hasEqualWay(ArrayList<Way> ways, Way way) {
+        for (Way candidate : ways) {
+            if (candidate.equals(way)) return true;
+        }
+        return false;
     }
 
     @Override
